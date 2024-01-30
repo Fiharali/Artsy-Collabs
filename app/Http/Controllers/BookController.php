@@ -15,6 +15,7 @@ class BookController extends Controller
     public function index()
     {
         //
+        return view('admin.book.books',[ 'books'=>Book::paginate(5)]);
     }
 
     /**
@@ -23,6 +24,8 @@ class BookController extends Controller
     public function create()
     {
         //
+        return view('admin.book.add');
+
     }
 
     /**
@@ -31,6 +34,8 @@ class BookController extends Controller
     public function store(StoreBookRequest $request)
     {
         //
+
+        Book::create($request->all());
     }
 
     /**

@@ -18,6 +18,13 @@ class BookFactory extends Factory
     {
         return [
             //
+            'title'=>fake()->name,
+            'author'=>fake()->name,
+            'genre'=>fake()->title,
+            'description'=>fake()->text,
+            'publication_year'=>fake()->date(),
+            'total_copies'=>fake()->numberBetween(2,30),
+            'available_copies'=>fake()->numberBetween(2,30),
         ];
     }
 }
