@@ -15,7 +15,7 @@ class BookController extends Controller
     public function index()
     {
         //
-        return view('admin.book.books',[ 'books'=>Book::paginate(5)]);
+        return view('admin.book.index',[ 'books'=>Book::paginate(5)]);
     }
 
     /**
@@ -35,7 +35,8 @@ class BookController extends Controller
     {
         //
 
-        Book::create($request->all());
+        Book::create($request->validated());
+        return redirect()->route('books.index')->with('success', 'Book added successfully');
     }
 
     /**
@@ -44,6 +45,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         //
+
     }
 
     /**
@@ -52,6 +54,7 @@ class BookController extends Controller
     public function edit(Book $book)
     {
         //
+        return view('admin.book.edit',[ 'book'=>$book]);
     }
 
     /**
@@ -60,6 +63,8 @@ class BookController extends Controller
     public function update(UpdateBookRequest $request, Book $book)
     {
         //
+        $book->update($request->all());
+        return redirect()->route('books.index')->with('success', "Book  updated successfully");
     }
 
     /**
@@ -67,6 +72,8 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect()->route('books.index')->with('success', "Book $book->title delete successfully");
     }
 }

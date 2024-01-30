@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
 use Illuminate\Support\Facades\Route;
@@ -24,11 +25,20 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::resource('books', BookController::class);
+
+    Route::get('register', [RegisteredUserController::class, 'create'])
+        ->name('register');
+
+    Route::get('/admin', function () {
+        return view('admin.index');
+    });
 });
 
 Route::get('/admin', function () {
     return view('admin.index');
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
