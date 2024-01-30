@@ -15,6 +15,7 @@ class ReseravtionController extends Controller
     public function index()
     {
         //
+
     }
 
     /**
