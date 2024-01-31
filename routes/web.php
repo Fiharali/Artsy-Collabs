@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ReseravtionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [BookController::class, 'all']) ->name('books.all');
+Route::post('/reserve/{user}/{book}', [ReseravtionController::class, 'store']) ->name('reservation.new');
+
 
 
 
@@ -28,6 +31,9 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::prefix('admin')->group(function () {
 
         Route::resource('books', BookController::class);
+
+
+        Route::resource('reservation', ReseravtionController::class)->only(['index', 'destroy']);
 
 
         Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');

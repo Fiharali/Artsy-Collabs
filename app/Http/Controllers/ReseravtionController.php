@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\Reseravtion;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreReseravtionRequest;
 use App\Http\Requests\UpdateReseravtionRequest;
+use App\Models\User;
 
 class ReseravtionController extends Controller
 {
@@ -15,6 +17,12 @@ class ReseravtionController extends Controller
     public function index()
     {
         //
+
+        return view('admin.reservation.index',[
+            'reservations'=>Reseravtion::with('user', 'book')
+                ->paginate(5)
+        ]);
+
 
     }
 
@@ -29,9 +37,16 @@ class ReseravtionController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreReseravtionRequest $request)
+    public function store(StoreReseravtionRequest $request,User $user,Book $book )
     {
         //
+
+        Reseravtion::create([
+            'description'=>'description',
+            'is_returned'=>0,
+            'user_id'=>$user->id,
+            'book_id'=>$book->id,
+        ]);
     }
 
     /**
@@ -63,6 +78,10 @@ class ReseravtionController extends Controller
      */
     public function destroy(Reseravtion $reseravtion)
     {
-        //
+        // Your delete logic
+        $reseravtion->delete();
+
+        return redirect()->route('reservation.index')->with('success', "Reservation number $reseravtion->id deleted successfully");
     }
+
 }
