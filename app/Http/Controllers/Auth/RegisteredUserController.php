@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateBookRequest;
+use App\Models\Book;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -32,20 +34,47 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'role_id' => 'required',
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => 'required'
         ]);
 
-        $user = User::create([
+          User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => $request->role_id,
         ]);
 
-        event(new Registered($user));
+        return redirect()->route('users.index')->with('success', 'User added successfully');
 
-        Auth::login($user);
-
-        return redirect(RouteServiceProvider::HOME);
     }
+
+    public function index()
+    {
+        //
+        return view('admin.users.index',[ 'users'=>User::paginate(5)]);
+    }
+
+    public function edit(User $user)
+    {
+        //
+        return view('admin.users.edit',[ 'user'=>$user]);
+
+    }
+
+    public function update(Request $request, User $user)
+    {
+        //
+        $user->update($request->all());
+        return redirect()->route('users.index')->with('success', "User  updated successfully");
+    }
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+
+       return redirect()->route('users.index')->with('success', "Book $user->name delete successfully");
+    }
+
 }

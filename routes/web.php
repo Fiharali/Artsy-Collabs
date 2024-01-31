@@ -18,25 +18,27 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('test');
-});
+}));
 
 
 
 
 Route::prefix('admin')->group(function () {
+
+
     Route::resource('books', BookController::class);
 
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
 
-    Route::get('/admin', function () {
-        return view('admin.index');
-    });
-});
+    Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('users.store');
+    Route::get('users', [RegisteredUserController::class, 'index'])->name('users.index');
+    Route::get('users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
+    Route::put('users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
+    Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
 
-Route::get('/admin', function () {
-    return view('admin.index');
-});
+})->middleware(['auth','admin']);
+
+
 
 
 
