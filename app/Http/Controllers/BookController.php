@@ -76,4 +76,11 @@ class BookController extends Controller
 
         return redirect()->route('books.index')->with('success', "Book $book->title delete successfully");
     }
+
+
+    public function all()
+    {
+        //
+        return view('index',[ 'books'=>Book::paginate(5)]);
+    }
 }

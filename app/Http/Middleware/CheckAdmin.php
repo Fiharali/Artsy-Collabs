@@ -16,10 +16,13 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-       if (auth::ckeck)
-        return $next($request);
+
+        $user = Auth::user();
+
+       if ($user->role->name === 'admin')
+           return $next($request);
        else{
-           redirect('/home');
+           return redirect()->back();
        }
     }
 }

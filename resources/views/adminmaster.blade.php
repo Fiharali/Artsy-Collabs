@@ -64,7 +64,13 @@
             <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16">
                 <a href="#" class="block px-4 py-2 account-link hover:text-white">Account</a>
                 <a href="#" class="block px-4 py-2 account-link hover:text-white">Support</a>
-                <a href="#" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+                <a href="#" class="block px-4 py-2 account-link hover:text-white">
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <input type="submit" value="LogOut">
+                    </form>
+                </a>
             </div>
         </div>
     </header>
@@ -97,6 +103,7 @@
                 <i class="fas fa-sticky-note mr-3"></i>
                 reservations
             </a>
+
 
         </nav>
         <!-- <button class="w-full bg-white cta-btn font-semibold py-2 mt-5 rounded-br-lg rounded-bl-lg rounded-tr-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
