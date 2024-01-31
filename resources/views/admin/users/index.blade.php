@@ -24,7 +24,7 @@
     <main class="w-full flex-grow p-6">
         {{-- <h1 class="text-3xl text-black pb-6">Tables</h1> --}}
 
-        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="{{route('register')}}">Add User</a>
+        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="/admin/register">Add User</a>
 
         <div class="w-full mt-20">
             <p class="text-xl pb-3 flex items-center float-right">

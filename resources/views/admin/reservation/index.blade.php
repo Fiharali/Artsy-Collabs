@@ -85,7 +85,7 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$reservation->return_date}}
+                                    {{$reservation->reservation_date}}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -117,7 +117,11 @@
 
 
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex ">
-
+                                <form action="{{route('reservation.update',[ $reservation->id,$reservation->book->id])}}" method="post" >
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="submit" value="Returned" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                </form>
                                 <form action="{{ route('reservation.destroy', $reservation->id) }}" method="post">
                                     @csrf
                                     @method('delete')

@@ -47,6 +47,11 @@ class ReseravtionController extends Controller
             'user_id'=>$user->id,
             'book_id'=>$book->id,
         ]);
+        $book->decrement('available_copies');
+
+        return redirect('/')->with('success', " your Book reserved successfully");
+
+
     }
 
     /**
@@ -68,9 +73,14 @@ class ReseravtionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateReseravtionRequest $request, Reseravtion $reseravtion)
+    public function update(UpdateReseravtionRequest $request, Reseravtion $reseravtion,Book $book)
     {
-        //
+
+        $reseravtion->update(['is_returned' => 1]);
+        $book->increment('available_copies');
+
+        return redirect()->route('reservation.index')->with('success', "Book number $book->id  restored ");
+
     }
 
     /**
@@ -79,8 +89,7 @@ class ReseravtionController extends Controller
     public function destroy(Reseravtion $reseravtion)
     {
         // Your delete logic
-        $reseravtion->delete();
-
+       $reseravtion->delete();
         return redirect()->route('reservation.index')->with('success', "Reservation number $reseravtion->id deleted successfully");
     }
 

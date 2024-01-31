@@ -33,7 +33,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::resource('books', BookController::class);
 
 
-        Route::resource('reservation', ReseravtionController::class)->only(['index', 'destroy']);
+
 
 
         Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
@@ -42,6 +42,12 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::get('users/{user}/edit', [RegisteredUserController::class, 'edit'])->name('users.edit');
         Route::put('users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
         Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
+
+
+        Route::get('/reservation', [ReseravtionController::class, 'index']) ->name('reservation.index');
+        Route::put('/reservation/{reseravtion}/{book}', [ReseravtionController::class, 'update']) ->name('reservation.update');
+        Route::delete('/reservation/{reseravtion}', [ReseravtionController::class, 'destroy']) ->name('reservation.destroy');
+
     });
 });
 
