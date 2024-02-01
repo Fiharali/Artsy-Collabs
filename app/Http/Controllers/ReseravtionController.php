@@ -47,6 +47,7 @@ class ReseravtionController extends Controller
             'user_id'=>$user->id,
             'book_id'=>$book->id,
         ]);
+
         $book->decrement('available_copies');
 
         return redirect('/')->with('success', " your Book reserved successfully");
