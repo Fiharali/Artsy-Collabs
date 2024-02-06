@@ -13,7 +13,7 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * The path to your application's "home" route.
      *
-     * Typically, projects are redirected here after authentication.
+     * Typically, partners are redirected here after authentication.
      *
      * @var string
      */

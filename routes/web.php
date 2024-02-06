@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ProjectController;
@@ -30,11 +31,9 @@ Route::middleware(['auth','admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {
 
-Route::resource('projects', ProjectController::class);
+        Route::resource('projects', ProjectController::class);
 
-
-
-
+        Route::resource('partners', PartnerController::class);
 
         Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
         Route::post('register', [RegisteredUserController::class, 'store'])->name('users.store');

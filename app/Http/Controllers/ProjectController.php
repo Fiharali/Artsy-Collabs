@@ -32,7 +32,10 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         //
-        Project::create($request->all());
+
+        $champs=$request->all();
+        $champs['image']=$request->file('image')->store('profile','public');
+        Project::create($champs);
         return to_route('projects.index')->with('success', 'Project added successfully');
     }
 

@@ -31,7 +31,7 @@
     <main class="w-full flex-grow p-6">
         {{-- <h1 class="text-3xl text-black pb-6">Tables</h1> --}}
 
-        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="{{route('projects.create')}}">Add Projects</a>
+        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="{{route('partners.create')}}">Add Partners</a>
 
         <div class="w-full mt-20">
             <p class="text-xl pb-3 flex items-center float-right">
@@ -53,17 +53,9 @@
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            description
-                        </th>
-
-                        <th
-                            class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            date create
-                        </th>
-                        <th
-                                class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             image
                         </th>
+
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                             Actions
@@ -72,43 +64,32 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($projects as $project)
+                    @foreach($partners as $partner)
                         <tr>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$project->id}}
+                                    {{$partner->id}}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">{{$project->title}}</p>
+                                <p class="text-gray-900 whitespace-no-wrap">{{$partner->name}}</p>
                             </td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$project->description}}
-                                </p>
-                            </td>
-
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$project->created_at->format('Y-m-d') }}
+                                    {{$partner->image}}
                                 </p>
-                            </td>
-                            <td class="py-5 border-b border-gray-200 bg-white text-sm">
-
-                                <img class="w-1/6 rounded-3xl" src="{{asset('storage/'.$project->image)}}" alt="{{$project->title}}" >
-
                             </td>
 
 
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex ">
 
-                                <form action="{{route('projects.edit', $project->id)}}" method="get">
+                                <form action="{{route('partners.edit', $partner->id)}}" method="get">
                                     @csrf
                                     <input type="submit" value="edit"
                                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                 </form>
-                                <form action="{{route('projects.destroy', $project->id)}}" method="post">
+                                <form action="{{route('partners.destroy', $partner->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" value="delete" onclick="return confirm('are you sure ')"
@@ -122,7 +103,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $projects->links() }}
+                {{ $partners->links() }}
 
             </div>
         </div>

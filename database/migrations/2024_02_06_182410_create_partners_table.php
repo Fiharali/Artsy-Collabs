@@ -14,16 +14,7 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->foreignId('role_id')
-                ->default(2)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('image');
         });
     }
 
