@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReseravtionController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [BookController::class, 'all']) ->name('books.all');
-Route::post('/reserve/{user}/{book}', [ReseravtionController::class, 'store']) ->name('reservation.new');
+
 
 
 
@@ -30,7 +30,7 @@ Route::middleware(['auth','admin'])->group(function () {
 
     Route::prefix('admin')->group(function () {
 
-        Route::resource('books', BookController::class);
+Route::resource('projects', ProjectController::class);
 
 
 
@@ -44,9 +44,6 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
 
 
-        Route::get('/reservation', [ReseravtionController::class, 'index']) ->name('reservation.index');
-        Route::put('/reservation/{reseravtion}/{book}', [ReseravtionController::class, 'update']) ->name('reservation.update');
-        Route::delete('/reservation/{reseravtion}', [ReseravtionController::class, 'destroy']) ->name('reservation.destroy');
 
     });
 });

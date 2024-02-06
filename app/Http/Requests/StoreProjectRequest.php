@@ -4,12 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateBookRequest extends FormRequest
+class StoreProjectRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    protected  $stopOnFirstFailure = true;
     public function authorize(): bool
     {
         return true;
@@ -22,21 +21,12 @@ class UpdateBookRequest extends FormRequest
      */
     public function rules(): array
     {
-        $totalCopies = $this->input('total_copies');
         return [
             //
+
             'title' => 'required|max:255',
-            'author' => 'required|max:255',
-            'genre' => 'required|max:255',
-            'description' => 'required',
-            'total_copies' => 'required|integer|min:0',
-            'available_copies' => [
-                'required',
-                'integer',
-                'min:0',
-                'max:' . ($totalCopies ?: 0),
-            ],
-            'publication_year' => 'required|date',
+            'description' => 'required|max:555',
+            'image' => 'required|image|mimes:jpg,png,jpeg,svg',
         ];
     }
 }

@@ -14,8 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.book.index',[ 'books'=>Book::paginate(5)]);
+
+        return view('admin.book.index');
     }
 
     /**

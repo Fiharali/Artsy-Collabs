@@ -32,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         // Check the user's role and redirect based on the role
         if ($user && $user->role->name === 'admin') {
-            return redirect()->route('users.index');
+            return redirect()->route('projects.index');
         } elseif ($user && $user->role->name === 'user') {
             return redirect('/');
         }

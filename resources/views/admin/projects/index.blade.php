@@ -31,7 +31,7 @@
     <main class="w-full flex-grow p-6">
         {{-- <h1 class="text-3xl text-black pb-6">Tables</h1> --}}
 
-        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="/admin/register">Add User</a>
+        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="{{route('projects.create')}}">Add Projects</a>
 
         <div class="w-full mt-20">
             <p class="text-xl pb-3 flex items-center float-right">
@@ -49,15 +49,15 @@
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            name
+                            Title
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            email
+                            description
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            role
+                            image
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -71,42 +71,42 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($users as $user)
+                    @foreach($projects as $project)
                         <tr>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
 
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$user->id}}
+                                    {{$project->id}}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">{{$user->name}}</p>
+                                <p class="text-gray-900 whitespace-no-wrap">{{$project->title}}</p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$user->email}}
-                                </p>
-                            </td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$user->role->name}}
+                                    {{$project->description}}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$user->created_at->format('Y-m-d') }}
+                                    {{$project->image}}
+                                </p>
+                            </td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                <p class="text-gray-900 whitespace-no-wrap">
+                                    {{$project->created_at->format('Y-m-d') }}
                                 </p>
                             </td>
 
 
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex ">
 
-                                <form action="{{route('users.edit', $user->id)}}" method="get">
+                                <form action="{{route('projects.edit', $project->id)}}" method="get">
                                     @csrf
                                     <input type="submit" value="edit"
                                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                 </form>
-                                <form action="{{route('users.destroy', $user->id)}}" method="post">
+                                <form action="{{route('projects.destroy', $project->id)}}" method="post">
                                     @csrf
                                     @method('delete')
                                     <input type="submit" value="delete" onclick="return confirm('are you sure ')"
@@ -120,7 +120,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $users->links() }}
+                {{ $projects->links() }}
 
             </div>
         </div>
