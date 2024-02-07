@@ -76,9 +76,8 @@
                                 <p class="text-gray-900 whitespace-no-wrap">{{$partner->name}}</p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$partner->image}}
-                                </p>
+
+                                <img class="h-10  rounded-3xl" src="{{asset('storage/'.$partner->image)}}" alt="{{$partner->title}}" >
                             </td>
 
 

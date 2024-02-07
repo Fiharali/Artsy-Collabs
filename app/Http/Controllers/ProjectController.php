@@ -34,7 +34,7 @@ class ProjectController extends Controller
         //
 
         $champs=$request->all();
-        $champs['image']=$request->file('image')->store('profile','public');
+        $champs['image']=$request->file('image')->store('projects','public');
         Project::create($champs);
         return to_route('projects.index')->with('success', 'Project added successfully');
     }
@@ -45,6 +45,9 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
+        $project =$project->with('users')->get();
+
+        return view('admin.projects.show',[ 'project'=>$project]);
     }
 
     /**

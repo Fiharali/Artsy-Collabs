@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -27,6 +29,7 @@ class StoreProjectRequest extends FormRequest
             'title' => 'required|max:255',
             'description' => 'required|max:555',
             'image' => 'required|image|mimes:jpg,png,jpeg,svg',
+
         ];
     }
 }

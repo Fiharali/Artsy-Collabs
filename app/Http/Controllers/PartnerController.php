@@ -34,7 +34,9 @@ class PartnerController extends Controller
     {
         //
 
-        Partner::create($request->all());
+        $champs=$request->all();
+        $champs['image']=$request->file('image')->store('partners','public');
+        Partner::create($champs);
         return to_route('partners.index')->with('success', 'partner added successfully');
     }
 

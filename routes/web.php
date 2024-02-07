@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\ProjectUserController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReseravtionController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::resource('projects', ProjectController::class);
 
         Route::resource('partners', PartnerController::class);
+        Route::resource('project-user', ProjectUserController::class);
 
         Route::get('register', [RegisteredUserController::class, 'create']) ->name('register');
         Route::post('register', [RegisteredUserController::class, 'store'])->name('users.store');

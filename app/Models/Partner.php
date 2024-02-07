@@ -14,4 +14,6 @@ class Partner extends Model
         'name',
         'image',
     ];
+
+    public $timestamps = false;
 }
