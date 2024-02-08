@@ -25,6 +25,16 @@
                         @enderror
                     </div>
                     <div class="mt-2">
+                        <label class="block text-sm text-gray-600" for="users">Select Users</label>
+                        <select class="w-full px-5 py-4 text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple>
+                            @foreach(\App\Models\User::all() as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('users')
+                        <p class="text-red-500 text-xs">{{ $message }}</p>
+                        @enderror
+                    </div>                    <div class="mt-2">
                         <label class="block text-sm text-gray-600" for="name">Password</label>
                         <input class="w-full px-5 py-4 text-gray-700 bg-gray-200 rounded" id="image" name="image"
                                type="file" value="{{old('image')}}" placeholder="Your image"

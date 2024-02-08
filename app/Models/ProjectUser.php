@@ -18,7 +18,7 @@ class ProjectUser extends Model
     ];
 
     protected $fillable = [
-        'description'	,'reservation_date'	,'return_date'	,'is_returned'	,'user_id'	,'book_id'
+        'project_id'	,'user_id'
     ];
 
 

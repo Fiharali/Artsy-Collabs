@@ -108,6 +108,11 @@
                                     <input type="submit" value="edit"
                                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                 </form>
+                                <form action="{{route('projects.show', $project->id)}}" method="get">
+                                    @csrf
+                                    <input type="submit" value="Show"
+                                           class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                </form>
                                 <form action="{{route('projects.destroy', $project->id)}}" method="post">
                                     @csrf
                                     @method('delete')

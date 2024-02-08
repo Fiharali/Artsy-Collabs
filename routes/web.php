@@ -44,6 +44,7 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::put('users/{user}', [RegisteredUserController::class, 'update'])->name('users.update');
         Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
 
+        Route::post('assign-users/{project}', [ProjectUserController::class, 'store'])->name('assign.users');
 
 
     });

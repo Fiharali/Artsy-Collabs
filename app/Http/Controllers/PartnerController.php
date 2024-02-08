@@ -34,6 +34,7 @@ class PartnerController extends Controller
     {
         //
 
+
         $champs=$request->all();
         $champs['image']=$request->file('image')->store('partners','public');
         Partner::create($champs);

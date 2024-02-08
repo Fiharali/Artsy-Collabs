@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -45,9 +46,13 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         //
-        $project =$project->with('users')->get();
+        $project->load('users');
+        $users=User::all(['id','name']);
 
-        return view('admin.projects.show',[ 'project'=>$project]);
+        return view('admin.projects.show',[
+            'project'=>$project,
+            'users'=>$users
+            ]);
     }
 
     /**
@@ -65,7 +70,14 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         //
-        $project->update($request->all());
+        $champs = $request->all();
+
+        if ($request->hasFile('image')) {
+            $champs['image'] = $request->file('image')->store('projects', 'public');
+        }
+
+        $project->update($champs);
+
         return redirect()->route('projects.index')->with('success', "project  updated successfully");
     }
 
