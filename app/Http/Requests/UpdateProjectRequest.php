@@ -27,6 +27,7 @@ class UpdateProjectRequest extends FormRequest
             'title' => 'required|max:255',
             'description' => 'required|max:555',
             'image' => 'image|mimes:jpg,png,jpeg,svg',
+            'partner_id' => 'required',
 
         ];
     }

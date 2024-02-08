@@ -14,6 +14,7 @@ class Project extends Model
         'title',
         'description',
         'image',
+        'partner_id',
     ];
 
 
@@ -21,5 +22,10 @@ class Project extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function partner()
+    {
+        return $this->belongsTo(Partner::class);
     }
 }

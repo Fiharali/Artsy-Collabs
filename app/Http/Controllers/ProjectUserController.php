@@ -40,7 +40,8 @@ class ProjectUserController extends Controller
         $project->users()->sync($request->users);
 
 
-       return redirect()->back();
+
+        return redirect()->back();
     }
 
     /**

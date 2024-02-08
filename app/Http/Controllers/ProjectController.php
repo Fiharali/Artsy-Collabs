@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Partner;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -24,7 +25,8 @@ class ProjectController extends Controller
     public function create()
     {
         //
-        return view('admin.projects.add');
+        $partners=Partner::all(['id','name']);
+        return view('admin.projects.add',compact('partners'));
     }
 
     /**
@@ -61,7 +63,11 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         //
-        return view('admin.projects.edit',[ 'project'=>$project]);
+        $partners=Partner::all(['id','name']);
+        return view('admin.projects.edit',[
+            'project'=>$project,
+            'partners'=>$partners
+        ]);
     }
 
     /**
@@ -92,4 +98,6 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', "Book $project->title delete successfully");
 
     }
+
+
 }

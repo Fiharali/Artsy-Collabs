@@ -69,7 +69,7 @@
                                                <div class="mt-2">
                                                    <select class="w-full   text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple>
                                                        @foreach($users as $user)
-                                                           <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                           <option value="{{ $user->id }}"   {{ $project->users->contains($user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
                                                        @endforeach
                                                    </select>
                                                </div>
