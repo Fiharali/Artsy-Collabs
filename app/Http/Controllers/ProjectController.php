@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -97,6 +98,16 @@ class ProjectController extends Controller
 
         return redirect()->route('projects.index')->with('success', "Book $project->title delete successfully");
 
+    }
+
+    public function all()
+    {
+
+
+        return view('index',[
+            'projects'=>Project::all()
+
+        ]);
     }
 
 

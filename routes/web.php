@@ -20,12 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
-
-
-
-
+Route::get('/', [ProjectController::class, 'all'])->name('index');
 
 
 Route::middleware(['auth','admin'])->group(function () {
@@ -45,7 +40,14 @@ Route::middleware(['auth','admin'])->group(function () {
         Route::delete('users/{user}', [RegisteredUserController::class, 'destroy'])->name('users.destroy');
 
         Route::post('assign-users/{project}', [ProjectUserController::class, 'store'])->name('assign.users');
+        Route::post('assign-from-user/{project}', [ProjectUserController::class, 'assignUser'])->name('user.assign.users');
+        Route::post('reset-assign-from-user/{project}', [ProjectUserController::class, 'resetAssignUser'])->name('reset.assign.users');
 
+        Route::post('accept-from-admin/{project}', [ProjectUserController::class, 'acceptAssignUser'])->name('accept.assign.users');
+        Route::post('remove-from-user/{project}', [ProjectUserController::class, 'removeAssignUser'])->name('remove.assign.users');
+
+        Route::post('project-user-accept/{project}/{user}', [ProjectUserController::class, 'projectUserAccept'])->name('project-user.accept');
+        Route::post('project-user-refuse/{project}/{user}', [ProjectUserController::class, 'projectUserRefuse'])->name('project-user.refuse');
 
     });
 });

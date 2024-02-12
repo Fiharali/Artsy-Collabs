@@ -31,7 +31,6 @@
     <main class="w-full flex-grow p-6">
         {{-- <h1 class="text-3xl text-black pb-6">Tables</h1> --}}
 
-        <a class="px-6  py-4 bg-blue-800 rounded-2xl text-blue-50 float-right " href="/admin/register">Add New</a>
 
         <div class="w-full mt-20">
             <p class="text-xl pb-3 flex items-center float-right">
@@ -58,7 +57,7 @@
 
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                            date create
+                            Status
                         </th>
                         <th
                                 class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -78,42 +77,41 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap">
-{{--                                        @foreach($projectUser->users as $user)--}}
-{{--                                           {{ $user->name }},--}}
-{{--                                        @endforeach--}}
-
+                                        {{$projectUser->project->title}}
                                     </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$projectUser->title}}
+                                    {{$projectUser->user->name}}
                                 </p>
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                 <p class="text-gray-900 whitespace-no-wrap">
-                                    {{$projectUser->created_at->format('Y-m-d') }}
+                                    @if($projectUser->status==1)
+                                        <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">approved</span>
+                                    @else
+                                        <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">denied</span>
+                                    @endif
+
                                 </p>
                             </td>
 
 
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm flex ">
 
-                                <form action="{{route('project-user.edit', $projectUser->id)}}" method="get">
-                                    @csrf
-                                    <input type="submit" value="edit"
-                                           class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                </form>
-                                <form action="{{route('project-user.edit', $projectUser->id)}}" method="get">
-                                    @csrf
-                                    <input type="submit" value="Show"
-                                           class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                </form>
-                                <form action="{{route('project-user.destroy', $projectUser->id)}}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <input type="submit" value="delete" onclick="return confirm('are you sure ')"
-                                           class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                                </form>
+                                @if($projectUser->status==1)
+                                    <form action="{{route('project-user.refuse',[ $projectUser->project->id,$projectUser->user->id])}}" method="post">
+                                        @csrf
+                                        <input type="submit" value="refuse"
+                                               class="focus:outline-none text-white bg-blue-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                    </form>
+                                @else
+                                    <form action="{{route('project-user.accept', [ $projectUser->project->id,$projectUser->user->id])}}" method="post">
+                                        @csrf
+                                        <input type="submit" value="accept"
+                                               class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                    </form>
+                                @endif
 
                             </td>
 

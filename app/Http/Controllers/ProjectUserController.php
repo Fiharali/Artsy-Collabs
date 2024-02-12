@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ProjectUser;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class ProjectUserController extends Controller
@@ -15,8 +17,8 @@ class ProjectUserController extends Controller
     public function index()
     {
         //
-        $projects = Project::with('users')->get();
-        return view('admin.project_user.index',[ 'projectUsers'=>$projects]);
+        $projectUsers  = ProjectUser::with('user', 'project')->get();
+        return view('admin.project_user.index',[ 'projectUsers'=>$projectUsers]);
 
 
     }
@@ -38,41 +40,39 @@ class ProjectUserController extends Controller
         //dd($project);
 
         $project->users()->sync($request->users);
-
-
+        $project->users()->updateExistingPivot($request->users, ['status' => 1]);
 
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function assignUser(Request $request,Project $project)
     {
         //
+        //dd($project);
+
+        $project->users()->attach(Auth::user());
+        return redirect()->back();
+    }
+    public function resetAssignUser(Request $request,Project $project)
+    {
+        $project->users()->detach(Auth::id());
+        return redirect()->back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit( ProjectUser $project_user)
+    public function projectUserRefuse(Request $request,Project $project,User $user)
     {
-        //
+        $project->users()->updateExistingPivot($user->id, ['status' => 0]);
+        return redirect()->back();
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function projectUserAccept(Request $request,Project $project,User $user)
     {
-        //
+        $project->users()->updateExistingPivot($user->id, ['status' => 1]);
+
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
+
+
+
 }
