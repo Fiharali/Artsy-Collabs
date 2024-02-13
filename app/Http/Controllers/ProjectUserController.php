@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 
 class ProjectUserController extends Controller
@@ -17,6 +18,7 @@ class ProjectUserController extends Controller
     public function index()
     {
         //
+        Gate::authorize('delete',Auth::user());
         $projectUsers  = ProjectUser::with('user', 'project')->get();
         return view('admin.project_user.index',[ 'projectUsers'=>$projectUsers]);
 

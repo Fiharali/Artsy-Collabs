@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Partner;
 use App\Http\Requests\StorePartnerRequest;
 use App\Http\Requests\UpdatePartnerRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 
 class PartnerController extends Controller
@@ -75,6 +77,7 @@ class PartnerController extends Controller
     public function destroy(Partner $partner)
     {
         //
+        Gate::authorize('delete',Auth::user());
         $partner->delete();
 
         return redirect()->route('partners.index')->with('success', "partner $partner->name delete successfully");

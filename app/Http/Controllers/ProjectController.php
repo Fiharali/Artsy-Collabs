@@ -8,6 +8,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
@@ -94,6 +95,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+        Gate::authorize('delete',Auth::user());
         $project->delete();
 
         return redirect()->route('projects.index')->with('success', "Book $project->title delete successfully");

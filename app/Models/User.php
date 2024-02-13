@@ -56,4 +56,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class);
     }
+
+
+    const EMAIL_SUPER_ADMIN = "ali@ali.com";
 }
