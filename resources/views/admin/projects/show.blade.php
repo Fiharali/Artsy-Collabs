@@ -67,7 +67,7 @@
                                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline"> add Artist </h3>
                                                <input type="hidden" value="{{$project->id}}">
                                                <div class="mt-2">
-                                                   <select class="w-full   text-gray-700 bg-gray-200 rounded" id="users" name="users[]" multiple>
+                                                   <select class="w-full   text-gray-700 bg-gray-200 rounded js-example-basic-multiple select2" id="users" name="users[]" multiple>
                                                        @foreach($users as $user)
                                                            <option value="{{ $user->id }}"   {{ $project->users->contains($user->id) ? 'selected' : '' }}>{{ $user->name }}</option>
                                                        @endforeach
